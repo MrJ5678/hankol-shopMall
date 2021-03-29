@@ -1,0 +1,49 @@
+<template>
+	<div class="three-ads-wrap m-2">
+		<div class="j-sb three-ads row">
+			<div>
+				<image 
+					:src="item[0].src"
+					style="width: 336px;height: 530px;border-radius: 20px;"
+					lazy-load
+				>
+				</image>
+			</div>
+			<div class="j-sb">
+				<image 
+					:src="item[1].src"
+					style="width: 358px;height: 256px;border-radius: 20px;"
+					lazy-load
+				>
+				</image>
+				<image 
+					:src="item[2].src"
+					style="width: 358px;height: 256px;border-radius: 20px;"
+					lazy-load
+				>
+				</image>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	export default {
+		props: {
+			item: Array
+		}
+	}
+</script>
+
+<style src="@/common/zcm-main-nvue.css"></style>
+<style>
+.three-ads-wrap {
+	width: 710px;
+	height: 530px;
+	border-radius: 20px;
+}
+
+.three-ads {
+	width: 710px;
+}
+</style>

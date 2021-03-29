@@ -1,0 +1,39 @@
+<template>
+	<div class="row m-2 px-2 bg-white index-nav-wrap">
+		<div 
+			v-for="(item, index) in resdata" 
+			:key="index"
+			class="j-center a-center mt-3 index-nav" 
+			>
+			<image 
+				:src="item.src"
+				class="image"
+			></image>
+			<text class="mt-1 mb-3 font-sm text-muted">{{item.name}}</text>
+		</div>
+	</div>
+</template>
+
+<script>
+	export default {
+		props: {
+			resdata: Array
+		}
+	}
+</script>
+
+<style src="@/common/zcm-main-nvue.css"></style>
+<style>
+.index-nav-wrap {
+	border-radius: 20px;
+}
+
+.index-nav {
+	width: 165px;
+}
+
+.image {
+	width: 58px; 
+	height: 58px;
+}
+</style>

@@ -24,4 +24,6 @@
 	@import url("/common/zcm-main.css");
 	/* 自定义公共样式 */
 	@import url("/common/common.css");
+	/* uParse css 文件 */
+	/* @import url("/components/uni-ui/uParse/src/wxParse.css"); */
 </style>

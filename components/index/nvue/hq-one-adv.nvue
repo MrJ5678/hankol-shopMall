@@ -1,0 +1,43 @@
+<template>
+	<div class="horizontal-ad-wrap">
+		<div class="horizontal-ad">
+			<div class="border-bottom p-2">
+				<text class="text-dark font font-weight">{{item.title}}</text>
+			</div>
+			<div>							
+				<image 
+					class="ad-image"
+					:src="item.cover"
+					style="height: 350px;"
+					lazy-load
+				>
+				</image>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	export default {
+		props: {
+			item: Object
+		}
+	}
+</script>
+
+<style src="@/common/zcm-main-nvue.css"></style>
+<style>
+.horizontal-ad-wrap {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.horizontal-ad {
+	width: 710px;
+	/* height: 400px; */
+}
+.ad-image {
+	width: 710px;
+	border-radius: 20px;
+}
+</style>

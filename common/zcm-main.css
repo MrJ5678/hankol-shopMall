@@ -175,7 +175,7 @@ body{
 .border-white{ border-color: var(--white)!important }
 .border-light-secondary{border-color: #F1F1F1!important;}
 
-.rounded{ border-radius: 5upx; }
+.rounded{ border-radius: 40upx; }
 .rounded-circle{ border-radius:100%; }
 .rounded-0{ border-radius:0; }
 
@@ -202,6 +202,7 @@ body{
 .bg-dark{ background-color: var(--dark)!important; }
 .bg-white{ background-color: var(--white)!important; }
 .bg-light-secondary{background-color: #F1F1F1!important;}
+.bg-muted{ background-color: var(--muted)!important;}
 
 /* Spacing */
 .m-0 { margin-left: 0;margin-right: 0;margin-top: 0;margin-bottom: 0;}

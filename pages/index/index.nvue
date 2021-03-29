@@ -1,0 +1,134 @@
+<template>
+	<div>
+		<list :show-scrollbar="false">
+			<cell>
+				<!-- 跑马灯 -->
+				<hq-slider :swipers="swipers" />
+				
+				<!-- cate 组件-->
+				<hq-index-navs :resdata="indexNavs" />
+				
+				<!-- 全局分割线 -->
+				<divider />
+				
+				<!-- 三图广告位 -->
+				<hq-three-advs :item="threeAdvs"/>
+				
+				<!-- 全局分割线 -->
+				<divider />
+				
+				<!-- 大图广告 -->
+				<hq-one-adv :item="oneAdv"/>
+				
+				<!-- 公共列表 -->
+				<div class="list-wrap">
+					<div class="row" style="width: 730px;">
+						<block
+							v-for="(item,index) in list"
+							:key="index"
+						>
+							<hq-common-list :item="item" :index="index"/>
+						</block>
+					</div>
+				</div>
+			</cell>
+		</list>
+	</div>
+</template>
+
+<script>
+	import hqSlider from '@/components/index/nvue/hq-slider.nvue';
+	import hqIndexNavs from '@/components/index/nvue/hq-index-navs.nvue';
+	import divider from '@/components/common/divider.nvue';
+	import hqThreeAdvs from '@/components/index/nvue/hq-three-advs.nvue'
+	import hqOneAdv from '@/components/index/nvue/hq-one-adv.nvue'
+	import hqCommonList from '@/components/common/hq-common-list.nvue'
+	
+	// 获取当前窗口对象
+	const currentWebview = plus.webview.currentWebview()
+	
+	export default {
+		components: {hqSlider, hqIndexNavs, divider, hqThreeAdvs, hqOneAdv, hqCommonList},
+		data() {
+			return {
+				swipers: [
+					{ src: "/static/images/demo/banner1.png" },
+					{ src: "/static/images/demo/banner2.png" },
+					{ src: "/static/images/demo/banner5-1.jpg" },
+				],
+				indexNavs: [
+					{ src: "/static/images/indexnav/1.png",name: "新品上市" },
+					{ src: "/static/images/indexnav/1.png",name: "新品上市" },
+					{ src: "/static/images/indexnav/1.png",name: "新品上市" },
+					{ src: "/static/images/indexnav/1.png",name: "新品上市" },
+				],
+				threeAdvs: [
+					{ src: "/static/images/demo/ad-biaozhunban-slice.jpg" },
+					{ src: "/static/images/demo/ad-banyuetan-slice.jpg" },
+					{ src: "/static/images/demo/ad-zhongguohong-slice.jpg" },
+				],
+				oneAdv: {
+					cover: "/static/images/demo/liuxiang-horizontal.jpeg",
+					title: "典藏"
+				},
+				list: [
+					{
+						cover: "/static/images/demo/list/list-biaozhun.jpeg",
+						title: "2021 · 标准版",
+						desc: "味道浑厚 酒体纯熟",
+						oprice: "439",
+						pprice: ""
+					},
+					{
+						cover: "/static/images/demo/list/list-banyuetan.jpeg",
+						title: "2021 · 半月坛",
+						desc: "馥郁浓香 极致享受",
+						oprice: "999",
+						pprice: ""
+					},
+					{
+						cover: "/static/images/demo/list/list-biaozhun.jpeg",
+						title: "2021 · 标准版",
+						desc: "味道浑厚 酒体纯熟",
+						oprice: "439",
+						pprice: ""
+					},
+					{
+						cover: "/static/images/demo/list/list-banyuetan.jpeg",
+						title: "2021 · 半月坛",
+						desc: "馥郁浓香 极致享受",
+						oprice: "999",
+						pprice: ""
+					}
+				]
+
+			}
+		},
+		created() {
+			// 监听当前窗口显示
+			currentWebview.addEventListener('show', () => {
+				console.log('index show ...');
+			})
+			
+		},
+		onNavigationBarSearchInputClicked() {
+			uni.navigateTo({
+				url: "../search/search"
+			})
+		},
+		beforeDestroy() {
+			// 移除监听事件
+			currentWebview.removeEventListener('show', e => {})
+		}
+	}
+</script>
+
+<style src="@/common/zcm-main-nvue.css"></style>
+<style>
+.list-wrap {
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 20px;
+	width: 730px;
+}
+</style>

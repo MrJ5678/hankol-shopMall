@@ -2,6 +2,7 @@
 	<view class="swiper-wrap">
 		<swiper
 			class="swiper" 
+			:style="getStyle"
 			indicator-dots 
 			autoplay 
 			:interval="3000" 
@@ -10,11 +11,11 @@
 		>
 			<block v-for="(item, index) in resdata" :key="index">				
 				<swiper-item>
-					<view class="swiper-item" @tap="event(item)">
+					<view class="swiper-item" @tap="event(item, index)">
 						<image 
 							:src="item.src"
 							lazy-load 
-							style="height: 410upx">
+							:style="getStyle">
 						</image>
 					</view>
 				</swiper-item>
@@ -26,10 +27,33 @@
 <script>
 export default {
 	props: {
-		resdata: Array
+		resdata: Array,
+		height: {
+			type: String,
+			default: '410'
+		},
+		preview: {
+			type: Boolean,
+			default: false
+		}
+	},
+	computed: {
+		getStyle() {
+			return `height: ${this.height}rpx;`
+		},
+		getUrls() {
+			return this.resdata.map((v) => v.src)
+		}
 	},
 	methods: {
-		event() {
+		event(item, index) {
+			if(this.preview) {
+				return uni.previewImage({
+					current: index,
+					urls: this.getUrls,
+					indicator: "default"
+				})
+			}
 			console.log('点击了 banner')
 		}
 	}
@@ -45,6 +69,5 @@ export default {
 
 .swiper {
 	width: 100%;
-	height: 410upx;
 }
 </style>

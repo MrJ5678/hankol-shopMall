@@ -1,0 +1,71 @@
+<template>
+	<div 
+		class="common-list"
+		@click="openDetail"
+	>
+		<image 
+			class="common-list-cover"
+			:src="item.cover"
+		>
+		</image>
+		<div class="bg-light-secondary common-list-desc">
+			<text class="font text-dark px-2 py-1 common-list-lines">{{item.title}}</text>
+			<text class="px-2 font-sm text-light-muted common-list-lines">{{item.desc}}</text>
+			<div class="px-2 pt-1 row">
+				<hq-price>
+					<block v-if="item.pprice">{{item.pprice}}</block>
+				</hq-price>
+				<text class="font-sm line-through text-light-muted ml-1 common-list-oprice">¥{{item.oprice}}</text>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	import hqPrice from '@/components/common/hq-price.nvue'
+	
+	export default {
+		components: {hqPrice},
+		props: {
+			item: Object,
+			index: Number
+		},
+		methods: {
+			openDetail() {
+				uni.navigateTo({
+					url: '/pages/detail/detail'
+				})
+			}
+		}
+	}
+</script>
+
+<style src="@/common/zcm-main-nvue.css"></style>
+<style>
+.common-list {
+	width: 365px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 20px;
+}
+
+.common-list-cover {
+	width: 345px;
+	height: 400px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+}
+
+.common-list-desc {
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.common-list-lines {
+	lines: 1;
+}
+
+.common-list-oprice {
+	align-self: flex-end;
+}
+</style>
