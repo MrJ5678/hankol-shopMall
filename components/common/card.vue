@@ -3,11 +3,11 @@
 		<!-- header -->
 		<view v-if="headVisible" class="p-2 main-border-color" :class="getHeadClass">
 			<slot name="title">
-				<text v-if="headTitle" class="font-md" :class="headTitleWeight ? 'font-weight' : ''">{{headTitle}}</text>				
+				<text v-if="headTitle" class="font-md ml-1" :class="headTitleWeight ? 'font-weight' : ''">{{headTitle}}</text>				
 			</slot>
 		</view>
 		<!-- body -->
-		<view class="ml-1 mr-1" :class="getBodyClass">
+		<view class="ml-1 mr-1" :class="getBodyClass" :style="bodyStyle">
 			<image 
 				v-if="bodyCover"
 				:src="bodyCover"
@@ -22,6 +22,7 @@
 <script>
 	export default {
 		props: {
+			bodyStyle: String,
 			// 是否显示头部
 			headVisible: {
 				type: Boolean,

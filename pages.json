@@ -38,7 +38,7 @@
 		"style": {
 			"app-plus": {
 				"scrollIndicator": "none",
-				"bounce":"none",
+				"bounce": "none",
 				"titleNView": {
 					"searchInput": {
 						"align": "left",
@@ -49,23 +49,33 @@
 						"placeholderColor": "#CCCCCC"
 					},
 					"buttons": [{
-							"color": "#989898",
-							"colorPressed": "#b91227",
-							"float": "right",
-							"fontSize": "22px",
-							"fontSrc": "/static/font/iconfont.ttf",
-							"text": "\ue67a"
-						}
-					]
+						"color": "#989898",
+						"colorPressed": "#b91227",
+						"float": "right",
+						"fontSize": "22px",
+						"fontSrc": "/static/font/iconfont.ttf",
+						"text": "\ue67a"
+					}]
 				}
 			}
 		}
 	}, {
 		"path": "pages/cart/cart",
-		"style": {}
+		"style": {
+			"app-plus": {
+				"scrollIndicator": "none",
+				"bounce": "none",
+				"titleNView": false
+			}
+		}
 	}, {
 		"path": "pages/my/my",
-		"style": {}
+		"style": {
+			"app-plus": {
+				"titleNView": false,
+				"bounce": "none"
+			}
+		}
 	}, {
 		"path": "pages/search/search",
 		"style": {
@@ -114,24 +124,81 @@
 				}
 			}
 		}
-	}    ,{
-            "path" : "pages/detail/detail",
-            "style": {
-				"app-plus": {
-					"scrollIndicator": "none",
-					"bounce": "none",
-					"titleNView": {
-						"type": "transparent",
-						"buttons": [
-							{
-								"type": "menu"
-							}
-						]
-					}
+	}, {
+		"path": "pages/detail/detail",
+		"style": {
+			"app-plus": {
+				"scrollIndicator": "none",
+				"bounce": "none",
+				"titleNView": {
+					"type": "transparent",
+					"buttons": [{
+						"type": "menu"
+					}]
 				}
 			}
-        }
-    ],
+		}
+	}, {
+		"path": "pages/detail-comment/detail-comment",
+		"style": {
+			"navigationBarTitleText": "商品评价",
+			"app-plus": {
+				"scrollIndicator": "none",
+				"bounce": "none"
+			}
+		}
+	}, {
+		"path": "pages/user-set/user-set",
+		"style": {
+			"navigationBarTitleText": "用户设置"
+		}
+
+	}, {
+		"path": "pages/user-userInfo/user-userInfo",
+		"style": {
+			"navigationBarTitleText": "修改资料"
+		}
+
+	}, {
+		"path": "pages/user-path-list/user-path-list",
+		"style": {
+			"navigationBarTitleText": "收货地址",
+			"app-plus": {
+				"scrollIndicator": "none",
+				"bounce": "none",
+				"titleNView": {
+					"buttons": [{
+						"float": "right",
+						"color": "#999",
+						"colorPressed": "#bbb",
+						"fontSrc": "/static/font/iconfont.ttf",
+						"text": "\ue626",
+						"fontSize": "15px"
+					}]
+				}
+			}
+		}
+
+	}, {
+		"path": "pages/user-path-edit/user-path-edit",
+		"style": {
+			"navigationBarTitleText":"添加收货地址",
+			"app-plus": {
+				"scrollIndicator":"none",
+				"bounce":"none",
+				"titleNView": {
+					"buttons": [{
+						"float":"right",
+						"color": "#999",
+						"colorPressed":"#bbb",
+						"text":"删除",
+						"fontSize":"16px"
+					}]
+				}
+			}
+		}
+
+	}],
 	// 全局配置
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

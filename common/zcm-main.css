@@ -5,7 +5,7 @@ image{will-change: transform}
 .scroll-row-item{ display: inline-block!important; }
 
 body{
-	--primary:#007bff;
+	--primary:#143e78;
 	--secondary: #6c757d;
 	--success: #28a745;
 	--danger: #dc3545;

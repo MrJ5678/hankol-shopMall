@@ -59,7 +59,6 @@
 	import uniDrawer from '@/components/uni-ui/uni-drawer/uni-drawer.vue'
 	import card from '@/components/common/card.vue'
 	import hqRadioGroup from '@/components/common/radio-group.vue'
-	
 	import searchList from '@/components/search-list/search-list.vue'
 	
 	export default {
@@ -154,9 +153,5 @@
 </script>
 
 <style>
-.radio-active {
-	border-color: #800002!important;
-	color: #800002!important;
-	background: #f7e6e4 !important;
-}
+
 </style>

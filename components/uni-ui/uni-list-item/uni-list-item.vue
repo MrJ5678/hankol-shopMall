@@ -12,7 +12,8 @@
 							<image :src="thumb" class="uni-list-item__icon-img" :class="['uni-list--' + thumbSize]" />
 						</view>
 						<view v-else-if="showExtraIcon" class="uni-list-item__icon">
-							<uni-icons :color="extraIcon.color" :size="extraIcon.size" :type="extraIcon.type" />
+							<uni-icons v-if="!leftIcon" :color="extraIcon.color" :size="extraIcon.size" :type="extraIcon.type" />
+							<view v-if="leftIcon" class="iconfont" :class="leftIcon" :style="leftIconStyle"></view>
 						</view>
 					</view>
 				</slot>
@@ -32,6 +33,10 @@
 				</slot>
 			</view>
 			<uni-icons v-if="showArrow || link" :size="16" class="uni-icon-wrapper" color="#bbb" type="arrowright" />
+			
+			<view class="mr-2 py-1">
+				<slot name="right"></slot>
+			</view>
 		</view>
 		<!-- #ifdef APP-NVUE -->
 	</cell>
@@ -82,6 +87,14 @@
 			uniBadge
 		},
 		props: {
+			leftIcon: {
+				type: String,
+				default: ''
+			},
+			leftIconStyle: {
+				type: String,
+				default: ''
+			},
 			direction: {
 				type: String,
 				default: 'row'
