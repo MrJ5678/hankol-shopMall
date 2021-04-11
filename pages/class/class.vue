@@ -1,6 +1,10 @@
 <template>
-	<view class="d-flex border-top border-light-secondary" style="height: 100%;box-sizing: border-box;">
-		<loading :show="showLoading"></loading>
+	<view class="animated fadeIn faster d-flex border-top border-light-secondary" style="height: 100%;box-sizing: border-box;">
+		
+		<loading-plus v-if="beforeReady"></loading-plus>
+		
+		<!-- <loading :show="showLoading"></loading> -->
+		
 		<scroll-view 
 			id="leftScroll"
 			scroll-y 
@@ -44,12 +48,14 @@
 </template>
 
 <script>
-	import loading from '@/components/common/loading.vue';
+	// import loading from '@/components/common/loading.vue';
+	import loading from '@/common/mixin/loading.js'
 	
 	export default {
-		components: {loading},
+		mixins: [loading],
 		data() {
 			return {
+				beforeReady: true,
 				showLoading: true,
 				// 当前选中分类索引
 				activeIndex: 0,

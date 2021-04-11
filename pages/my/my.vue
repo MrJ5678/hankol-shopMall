@@ -1,11 +1,16 @@
 <template>
-	<view>
+	<view class="animated fadeIn faster">
 		<!-- 头部 -->
 		<view class="position-relative d-flex a-center" style="height: 320rpx;">
-			<view 
-				class="iconfont icon-xiaoxi position-absolute text-light-muted" 
-				style="font-size: 50rpx;top: 75rpx;right: 20rpx;z-index: 100;">
-			</view>
+			
+			<loading-plus v-if="beforeReady"></loading-plus>
+			
+			<!-- 消息列表 -->
+				<view 
+					@click="navigate('msg-list')"
+					class="iconfont icon-xiaoxi position-absolute text-light-muted" 
+					style="font-size: 50rpx;top: 75rpx;right: 20rpx;z-index: 100;">
+				</view>
 			<image 
 				src="../../static/images/demo/search-page-banner.jpeg" 
 				style="height: 320rpx;width: 100%;"
@@ -17,7 +22,9 @@
 					style="height: 145rpx;width: 145rpx;border: 5rpx solid;"
 					class="rounded-circle border-light ml-4"
 				></image>
-				<view class="ml-2 text-dark font-md">昵称</view>
+				<navigator url="../login/login">
+					<view class="ml-2 text-dark font-md font-weight">昵称</view>
+				</navigator>
 				<view class="d-flex a-center j-center ml-auto a-self-end px-2" style="height:70rpx;background-color: #ffd43f;color: #cc4a00;border-top-left-radius: 40rpx;border-bottom-left-radius: 40rpx;">
 					<view class="line-h iconfont icon-huangguan mr-1"></view>
 					会员积分 199
@@ -29,7 +36,7 @@
 		<card style="position: relative;margin-top: -30rpx;z-index: 999;" class="mx-1 rounded bg-light-secondary">
 			<view slot="title" class="d-flex j-sb a-center">
 				<text class="font-md font-weight">我的订单</text>
-				<view class="text-secondary font">
+				<view class="text-secondary font" @click="navigate('order')">
 					全部订单
 					<text class="iconfont icon-you font"></text>
 				</view>
@@ -112,15 +119,17 @@
 </template>
 
 <script>
+	import loading from '@/common/mixin/loading.js'
 	import card from '@/components/common/card.vue'
 	import divider from '@/components/common/divider.nvue'
 	import uniListItem from '@/components/uni-ui/uni-list-item/uni-list-item.vue'
 	
 	export default {
+		mixins:	[loading],
 		components: {card, divider, uniListItem},
 		data() {
 			return {
-				
+				beforeReady: true
 			}
 		},
 		methods: {

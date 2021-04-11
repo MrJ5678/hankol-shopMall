@@ -1,5 +1,8 @@
 <template>
-	<view style="background-color: #F5F5F5;">
+	<view class="animated fadeIn faster" style="background-color: #F5F5F5;">
+		
+		<loading-plus v-if="beforeReady"></loading-plus>
+		
 		<uni-nav-bar 
 			statusBar
 			:right-text="isEdit ? '完成' : '编辑'" 
@@ -70,6 +73,22 @@
 			</view>
 		</view>
 		
+		<view class="mt-3 text-center main-text-color font-md font-weight">为你推荐</view>
+		<view class="position-relative d-flex j-center a-center text-secondary mb-3 py-3 mx-2">
+			<view class="position-absolute left-0 right-0" style="height: 2upx;background-color: #BEBEBE;"></view>
+			<view style="background-color: #F5F5F5;z-index: 2;" class="px-4 position-absolute">买了的人还买了</view>
+		</view>
+		
+		
+		<!-- 热门推荐 -->
+		<view class="list-wrap ml-2 mr-2">
+			<view class="row j-sb">
+				<block v-for="(item, index) in hotList" :key="index">
+					<common-list :item="item" :index="index"/>
+				</block>
+			</view>
+		</view>
+		
 		<!-- 占位 -->
 		<view style="height: 100upx;"></view>
 		<!-- 合计 -->
@@ -90,6 +109,7 @@
 				<view 
 					class="flex-1 my-1 mr-2 d-flex a-center j-center main-bg-color main-text-color rounded text-white font-md" 
 					hover-class="main-bg-hover-color"
+					@tap="orderConfirm"
 				>
 					结算
 				</view>
@@ -162,25 +182,57 @@
 				确定
 			</view>
 		</common-popup>
-		
 	</view>
 </template>
 
 <script>
+	import loading from '@/common/mixin/loading.js'
 	import uniNavBar from '@/components/uni-ui/uni-nav-bar/uni-nav-bar.vue'
 	import price from '@/components/common/price.vue'
 	import uniNumberBox from '@/components/uni-ui/uni-number-box/uni-number-box.vue'
 	import commonPopup from '@/components/common/common-popup.vue'
 	import card from '@/components/common/card.vue'
 	import hqRadioGroup from '@/components/common/radio-group.vue'
+	import commonList from '@/components/common/common-list.vue'
 	import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 	
 	export default {
-		components: {uniNavBar, price, uniNumberBox, card, hqRadioGroup, commonPopup},
+		mixins:	[loading],
+		components: {uniNavBar, price, uniNumberBox, card, hqRadioGroup, commonPopup, commonList},
 		data() {
 			return {
 				isEdit: false,
 				navBarHeight: 0,
+				hotList: [
+					{
+						cover: "/static/images/demo/list/list-biaozhun.jpeg",
+						title: "2021 · 标准版",
+						desc: "味道浑厚 酒体纯熟",
+						oprice: "¥439",
+						pprice: ""
+					},
+					{
+						cover: "/static/images/demo/list/list-banyuetan.jpeg",
+						title: "2021 · 半月坛",
+						desc: "馥郁浓香 极致享受",
+						oprice: "¥999",
+						pprice: ""
+					},
+					{
+						cover: "/static/images/demo/list/list-biaozhun.jpeg",
+						title: "2021 · 标准版",
+						desc: "味道浑厚 酒体纯熟",
+						oprice: "¥439",
+						pprice: ""
+					},
+					{
+						cover: "/static/images/demo/list/list-banyuetan.jpeg",
+						title: "2021 · 半月坛",
+						desc: "馥郁浓香 极致享受",
+						oprice: "¥999",
+						pprice: ""
+					}
+				],
 			}
 		},
 		computed: {
@@ -202,6 +254,11 @@
 			changeNumber(e, item, index) {
 				item.number = e
 			},
+			orderConfirm() {
+				uni.navigateTo({
+					url: '../order-confirm/order-confirm',
+				});
+			}
 		}
 	}
 </script>

@@ -31,12 +31,15 @@
 						<switch v-if="showSwitch" :disabled="disabled" :checked="switchChecked" @change="onSwitchChange" />
 					</view>
 				</slot>
+				<view class="mr-2 py-1 d-flex j-center a-center">
+					<slot name="right"></slot>
+				</view>
+				<view class="d-flex a-center j-center">
+					<slot name="rightContent"></slot>
+				</view>
 			</view>
 			<uni-icons v-if="showArrow || link" :size="16" class="uni-icon-wrapper" color="#bbb" type="arrowright" />
 			
-			<view class="mr-2 py-1">
-				<slot name="right"></slot>
-			</view>
 		</view>
 		<!-- #ifdef APP-NVUE -->
 	</cell>

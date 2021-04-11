@@ -1,5 +1,5 @@
 <template>
-	<view class="card">
+	<view class="card" :style="cardStyle">
 		<!-- header -->
 		<view v-if="headVisible" class="p-2 main-border-color" :class="getHeadClass">
 			<slot name="title">
@@ -7,7 +7,7 @@
 			</slot>
 		</view>
 		<!-- body -->
-		<view class="ml-1 mr-1" :class="getBodyClass" :style="bodyStyle">
+		<view :class="getBodyClass" :style="bodyStyle">
 			<image 
 				v-if="bodyCover"
 				:src="bodyCover"
@@ -45,6 +45,11 @@
 				type: Boolean,
 				default: false
 			},
+			// 卡片背景色
+			cardStyle: {
+				type: String,
+				default: ''
+			}
 		},
 		computed: {
 			getHeadClass() {

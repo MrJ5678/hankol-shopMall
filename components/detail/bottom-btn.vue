@@ -18,7 +18,7 @@
 				购物车
 			</view>
 			<view 
-				class="d-flex j-center a-center font-md main-bg-color text-white" 
+				class="mx-2 my-1 d-flex j-center a-center font-md main-bg-color text-white rounded" 
 				hover-class="main-bg-hover-color" 
 				style="flex: 2.5"
 				@tap="$emit('showPopup')"

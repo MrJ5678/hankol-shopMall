@@ -181,6 +181,7 @@ body{
 
 /* color */
 .text-primary{ color:var(--primary)!important; }
+.text-blue{ color: #007AFF; }
 .text-secondary{ color:var(--secondary)!important; }
 .text-success{ color:var(--success)!important; }
 .text-danger{ color: var(--danger)!important; }

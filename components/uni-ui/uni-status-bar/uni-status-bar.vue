@@ -8,11 +8,17 @@
 	var statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px'
 	export default {
 		name: 'UniStatusBar',
+		props: {
+			barStyle: {
+				type: String,
+				default: ''
+			}
+		},
 		data() {
 			return {
 				statusBarHeight: statusBarHeight
 			}
-		}
+		},
 	}
 </script>
 

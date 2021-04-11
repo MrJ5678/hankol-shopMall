@@ -57,15 +57,15 @@
 			</view>
 		</view>
 		<!-- 热门推荐 -->
-		<card headTitle="热门推荐" :headTitleWeight="false" :headBorderBottom="false"/>
-		<view class="row p-2 j-sb">
-			<common-list 
-				v-for="(item, index) in hotList" 
-				:key="index"
-				:item="item" 
-				:index="index"
-			/>
+		<card headTitle="热门推荐" :headTitleWeight="false" :headBorderBottom="false" />
+		<view class="list-wrap ml-2 mr-2">
+			<view class="row j-sb">
+				<block v-for="(item, index) in hotList" :key="index">
+					<common-list :item="item" :index="index"/>
+				</block>
+			</view>
 		</view>
+		
 		
 		<!-- 底部操作条 -->
 		<bottom-btn @showPopup="show('attr')"></bottom-btn>
@@ -126,9 +126,9 @@
 			</view>
 			<!-- 表单部分 -->
 			<scroll-view scroll-y class="w-100" style="height: 780rpx;">
-				<uni-list-item showArrow clickable v-for="i in 10" :key="i">
-					<view class="iconfont icon-dingwei font-weight font-md">隆冬</view>
-					<view class="font text-light-muted">黑龙江省哈尔滨市道里区哈药路270号</view>
+				<uni-list-item showArrow clickable v-for="(item, index) in pathList" :key="index">
+					<view class="iconfont icon-dingwei font-weight font-md">{{item.name}}</view>
+					<view class="font text-light-muted">{{item.path}} {{item.detailPath}}</view>
 				</uni-list-item>
 			</scroll-view>
 			
@@ -136,7 +136,7 @@
 			<view 
 				class="main-bg-color text-white font-md d-flex a-center j-center rounded mt-2" 
 				hover-class="main-bg-hover-color" 
-				@tap.stop="hide('express')"
+				@tap.stop="openCreatePath"
 				style="height: 100rpx;">
 				选择新地址
 			</view>
@@ -183,7 +183,7 @@
 	import price from '@/components/common/price.vue'
 	import hqRadioGroup from '@/components/common/radio-group.vue'
 	import uniNumberBox from '@/components/uni-ui/uni-number-box/uni-number-box.vue'
-	import {mapMutations} from 'vuex'
+	import {mapState, mapMutations} from 'vuex'
 	
 	export default {
 		components: {swiperImage, baseInfo, uniListItem, scrollComment, card, commonList, bottomBtn, commonPopup, price, hqRadioGroup, uniNumberBox},
@@ -296,6 +296,11 @@
 				]
 			}
 		},
+		computed: {
+			...mapState({
+				pathList: state => state.path.list
+			})
+		},
 		// 监听页面返回事件
 		onBackPress() {
 			// 关闭 modal
@@ -308,6 +313,12 @@
 		},
 		methods: {
 			...mapMutations(['addGoodsToCart']),
+			openCreatePath() {
+				uni.navigateTo({
+					url: '../user-path-edit/user-path-edit',
+				})
+				this.hide('express')
+			},
 			hide(key) {
 				this.popup[key] = 'hide'
 				setTimeout(() => {

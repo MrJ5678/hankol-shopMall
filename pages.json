@@ -182,20 +182,104 @@
 	}, {
 		"path": "pages/user-path-edit/user-path-edit",
 		"style": {
-			"navigationBarTitleText":"添加收货地址",
+			"navigationBarTitleText": "添加收货地址",
 			"app-plus": {
-				"scrollIndicator":"none",
-				"bounce":"none",
+				"scrollIndicator": "none",
+				"bounce": "none"
+			}
+		}
+
+	}, {
+		"path": "pages/order/order",
+		"style": {
+			"navigationBarTitleText": "我的订单",
+			"app-plus": {
+				"scrollIndicator": "none",
 				"titleNView": {
 					"buttons": [{
-						"float":"right",
-						"color": "#999",
-						"colorPressed":"#bbb",
-						"text":"删除",
-						"fontSize":"16px"
-					}]
+							"float": "right",
+							"color": "#999",
+							"colorPressed": "#bbb",
+							"fontSrc": "/static/font/iconfont.ttf",
+							"text": "\ue60c",
+							"fontSize": "20px"
+						},
+						{
+							"float": "right",
+							"color": "#999",
+							"colorPressed": "#bbb",
+							"fontSrc": "/static/font/iconfont.ttf",
+							"text": "\ue6e3",
+							"fontSize": "20px"
+						}
+					]
 				}
 			}
+		}
+	}, {
+		"path": "pages/order-confirm/order-confirm",
+		"style": {
+			"navigationBarTitleText": "订单配送至",
+			"navigationBarBackgroundColor": "#7d1d29",
+			"navigationBarTextStyle": "white"
+		}
+
+	}, {
+		"path": "pages/order-invoice/order-invoice",
+		"style": {
+			"navigationBarTitleText": "发票",
+			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/login/login",
+		"style": {
+			"app-plus": {
+				"bounce": "none",
+				"scrollIndicator": "none",
+				"titleNView": false
+			}
+		}
+
+	}, {
+		"path": "pages/msg-list/msg-list",
+		"style": {
+			"navigationBarTitleText": "消息列表"
+		}
+
+	}, {
+		"path": "pages/msg-detail/msg-detail",
+		"style": {
+			"navigationBarTitleText": "消息详情页"
+		}
+
+	}, {
+		"path": "pages/pay-methods/pay-methods",
+		"style": {
+			"navigationBarTitleText": "选择支付方式"
+		}
+
+	}, {
+		"path": "pages/pay-result/pay-result",
+		"style": {
+			"navigationBarTitleText": "支付成功"
+		}
+
+	}, {
+		"path": "pages/order-detail/order-detail",
+		"style": {
+			"app-plus": {
+				"bounce": "none",
+				"titleNView": {
+					"type": "transparent"
+				}
+			}
+		}
+
+	}, {
+		"path": "pages/logistics-detail/logistics-detail",
+		"style": {
+			"navigationBarTitleText": "物流信息"
 		}
 
 	}],
