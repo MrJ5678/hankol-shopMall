@@ -1,37 +1,61 @@
 <template>
 	<div>
 		<list :show-scrollbar="false">
-			<cell>
-				<!-- 跑马灯 -->
-				<hq-slider :swipers="swipers" />
-				
-				<!-- cate 组件-->
-				<hq-index-navs :resdata="indexNavs" />
-				
-				<!-- 全局分割线 -->
-				<divider />
-				
-				<!-- 三图广告位 -->
-				<hq-three-advs :item="threeAdvs"/>
-				
-				<!-- 全局分割线 -->
-				<divider />
-				
-				<!-- 大图广告 -->
-				<hq-one-adv :item="oneAdv"/>
-				
-				<!-- 公共列表 -->
-				<div class="list-wrap">
-					<div class="row" style="width: 730px;">
-						<block
-							v-for="(item,index) in list"
-							:key="index"
-						>
-							<hq-common-list :item="item" :index="index"/>
-						</block>
+			
+			<!-- 下拉刷新 -->
+			<refresh class="w-100 flex-row j-center a-center" 
+			style="height: 80px;"
+			@refresh="refresh" @pullingdown="pullingdown" 
+			:display="refreshShow">
+				<text class="font text-secondary">{{refreshText}}</text>
+			</refresh>
+			
+			<template v-if="pageVisible">
+				<cell>
+					<!-- 跑马灯 -->
+					<hq-slider :swipers="swipers" />
+					
+					<!-- cate 组件-->
+					<hq-index-navs :resdata="indexNavs" />
+					
+					<!-- 全局分割线 -->
+					<divider />
+					
+					<!-- 三图广告位 -->
+					<hq-three-advs :item="threeAdvs"/>
+					
+					<!-- 全局分割线 -->
+					<divider />
+					
+					<!-- 大图广告 -->
+					<hq-one-adv :item="oneAdv"/>
+					
+					<!-- 公共列表 -->
+					<div class="list-wrap">
+						<div class="row" style="width: 730px;">
+							<block
+								v-for="(item,index) in list"
+								:key="index"
+							>
+								<hq-common-list :item="item" :index="index"/>
+							</block>
+						</div>
 					</div>
-				</div>
-			</cell>
+				</cell>
+			</template>
+			
+			<template v-else>
+				<cell class="j-center a-center pt-5">
+					<text class="font-md text-light-muted">暂无数据</text>
+				</cell>
+			</template>
+			
+			<!-- 上拉加载 -->
+			<loading class="w-100 j-center a-center" 
+			style="height: 70px;"
+			@loading="onLoading" :display="loadingShow">
+				<text class="text-secondary font">{{loadingText}}</text>
+			</loading>
 		</list>
 	</div>
 </template>
@@ -43,24 +67,43 @@
 	import hqThreeAdvs from '@/components/index/nvue/hq-three-advs.nvue'
 	import hqOneAdv from '@/components/index/nvue/hq-one-adv.nvue'
 	import hqCommonList from '@/components/common/hq-common-list.nvue'
+	// import request from '@/common/lib/request.js'
 	
 	// 获取当前窗口对象
 	const currentWebview = plus.webview.currentWebview()
+	var dataKey = {
+		'swiper': 'swipers',
+		'indexnavs': 'indexNavs',
+		'threeAdv': 'threeAdvs',
+		'oneAdv': 'oneAdv',
+		'list': 'list'
+	}
 	
 	export default {
 		components: {hqSlider, hqIndexNavs, divider, hqThreeAdvs, hqOneAdv, hqCommonList},
 		data() {
 			return {
+				// 页面是否展示空白占位
+				pageVisible: false,
+				// 处理回到顶部
+				clickOtherTabBar: false,
+				// 当前页数
+				page: 0,
+				// 刷新相关数据
+				refreshShow: 'hide',
+				refreshText: '下拉可以刷新',
+				loadingShow: 'hide',
+				loadingText: '正在努力加载中...',
 				swipers: [
 					{ src: "/static/images/demo/banner1.png" },
 					{ src: "/static/images/demo/banner2.png" },
 					{ src: "/static/images/demo/banner5-1.jpg" },
 				],
 				indexNavs: [
-					{ src: "/static/images/indexnav/1.png",name: "新品上市" },
-					{ src: "/static/images/indexnav/1.png",name: "新品上市" },
-					{ src: "/static/images/indexnav/1.png",name: "新品上市" },
-					{ src: "/static/images/indexnav/1.png",name: "新品上市" },
+					{ src: "/static/images/indexnav/1.png",text: "新品上市" },
+					{ src: "/static/images/indexnav/1.png",text: "新品上市" },
+					{ src: "/static/images/indexnav/1.png",text: "新品上市" },
+					{ src: "/static/images/indexnav/1.png",text: "新品上市" },
 				],
 				threeAdvs: [
 					{ src: "/static/images/demo/ad-biaozhunban-slice.jpg" },
@@ -88,20 +131,33 @@
 					},
 					{
 						cover: "/static/images/demo/list/list-biaozhun.jpeg",
-						title: "2021 · 标准版",
-						desc: "味道浑厚 酒体纯熟",
-						oprice: "439",
+						title: "2020 · 留香",
+						desc: "香气持久 沁人心脾",
+						oprice: "2899",
 						pprice: ""
 					},
 					{
 						cover: "/static/images/demo/list/list-banyuetan.jpeg",
-						title: "2021 · 半月坛",
-						desc: "馥郁浓香 极致享受",
+						title: "2021 · 家藏",
+						desc: "珍稀酱酒 收藏时光",
+						oprice: "999",
+						pprice: ""
+					},
+					{
+						cover: "/static/images/demo/list/list-zhongguohong.jpeg",
+						title: "2021 · 中国红",
+						desc: "醇柔酱香 分享喜悦",
+						oprice: "999",
+						pprice: ""
+					},
+					{
+						cover: "/static/images/demo/list/list-zhongguohong.jpeg",
+						title: "2021 · 经典版",
+						desc: "酣客经典 盲品更牛",
 						oprice: "999",
 						pprice: ""
 					}
 				]
-
 			}
 		},
 		created() {
@@ -109,12 +165,129 @@
 			currentWebview.addEventListener('show', () => {
 				console.log('index show ...');
 			})
-			
+			// 初始化数据
+			this.__doInit()
 		},
 		onNavigationBarSearchInputClicked() {
 			uni.navigateTo({
 				url: "../search/search"
 			})
+		},
+		methods: {
+			// 初始化
+			async __init() {
+				// 第三种请求方式
+				let [error, res] = await uni.request({
+					url: 'http://privatemall.hrbjztec.cn/api/index_category/data'
+				});
+				if(error) {
+					uni.showToast({
+						title: '网络连接错误,请尝试重新连接',
+						icon: 'none',
+						duration:3000
+					});
+				}
+				// 失败
+				if(res.statusCode !== 200) {
+					return uni.showToast({
+						title: res.data.msg,
+						icon: 'none',
+						duration:3000
+					});
+				}
+				// 成功
+				return res.data.data.data
+			},
+			async __doInit() {
+				// 初始化
+				let res = await this.__init()
+				this.pageVisible = true
+				if(res) {
+					this.handleRemoteData(res)
+					this.page = Math.ceil(this.list.length / 6)
+				}
+			},
+			// 加载更多数据
+			async addData() {
+				let page = this.page
+				let [error, res] = await uni.request({
+					url: `http://privatemall.hrbjztec.cn/api/index_category/1/data/${page}`
+				});
+				if(error) {
+					uni.showToast({
+						title: '网络连接错误,请尝试重新连接',
+						icon: 'none',
+						duration:3000
+					});
+				}
+				// 失败
+				if(res.statusCode !== 200) {
+					return uni.showToast({
+						title: res.data.msg,
+						icon: 'none',
+						duration:3000
+					});
+				}
+				return res.data.data
+			},
+			// 处理远程数据赋值到组件
+			handleRemoteData(data) {
+				for (let key in dataKey) {
+					let handleData = data.filter(v => v.type === key)[0].data
+					let array = Object.values(handleData)
+					if(key === 'oneAdv') {
+						this[dataKey['oneAdv']]['title'] = array[0]
+						this[dataKey['oneAdv']]['cover'] = array[1]
+					} else {
+						this[dataKey[key]] = array
+					}
+				}
+			},
+			// 上拉加载事件
+			onLoading() {				
+				this.loadingShow = 'show'
+				// 如果已经没有数据可以渲染
+				if(this.page === 3) { 
+					this.loadingText = '没有更多了'
+					setTimeout(() => {
+						this.loadingShow = 'hide'
+					}, 2000)
+					return false
+				}
+				this.page++
+				this.doAddData()
+			},
+			// 执行请求更多数据
+			doAddData() {
+				setTimeout(async () => {
+					// 加载数据
+					let res = await this.addData()
+					
+					if(res && res.length !== 0) {
+						uni.showToast({title: '加载成功！',icon: 'none'});
+						let handleData = res.filter(v => v.type === 'list')[0].data
+						let array = Object.values(handleData)
+						this.list = [...this.list, ...array]
+					}
+					this.loadingShow = 'hide'
+				}, 2000)
+			},
+			// 执行刷新
+			refresh(e){
+				this.refreshShow = 'show';
+				this.refreshText = '正在刷新...';
+				setTimeout(()=>{
+					this.page = 0
+					this.loadingText = '正在努力加载中...'
+					this.__doInit()
+					this.refreshShow = 'hide';
+					this.refreshText = '下拉可以刷新';
+				},1200)
+			},
+			// 判断下拉刷新状态
+			pullingdown(e){
+				this.refreshText = e.pullingDistance > e.viewHeight ? '释放就能刷新咯' : '下拉可以刷新';
+			}
 		},
 		beforeDestroy() {
 			// 移除监听事件

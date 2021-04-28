@@ -13,7 +13,7 @@
 			<text class="px-2 font-sm text-light-muted common-list-lines">{{item.desc}}</text>
 			<div class="px-2 pt-1 row">
 				<hq-price>
-					<block v-if="item.pprice">{{item.pprice}}</block>
+					<text v-if="item.pprice" class="font" style="color: #7d1d29;">{{item.pprice}}</text>
 				</hq-price>
 				<text class="font-sm line-through text-light-muted ml-1 common-list-oprice">¥{{item.oprice}}</text>
 			</div>

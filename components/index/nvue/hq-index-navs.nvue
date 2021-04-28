@@ -9,7 +9,7 @@
 				:src="item.src"
 				class="image"
 			></image>
-			<text class="mt-1 mb-3 font-sm text-muted">{{item.name}}</text>
+			<text class="mt-1 mb-3 font-sm text-muted">{{item.text}}</text>
 		</div>
 	</div>
 </template>
